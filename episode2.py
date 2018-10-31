@@ -13,6 +13,7 @@ g = 9.81
 class NewGame(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height)
+        arcade.set_background_color(arcade.color.LIGHT_GOLDENROD_YELLOW)
         self.player = arcade.Sprite("img/character.png",
                                     SPRITE_SCALING_PLAYER)
         self.drugs = arcade.SpriteList()
@@ -53,18 +54,18 @@ class NewGame(arcade.Window):
             color=(255, 255, 255),
         )
         arcade.draw_text(
-            text=f'♥: {self.hp:2d}\t$: {self.score:5d}\t⏱: {self.time_left:5.1f}',
+            text=f'♥: {self.hp:2d}\t$: {self.score:5d}\t⧖: {self.time_left:5.1f}',
             start_x=10,
             start_y=self.height - 50,
-            color=(255, 0, 0),
+            color=(26, 35, 128),
             font_size=36,
         )
         if not self.is_running:
             arcade.draw_text(
                 text='Press space to start',
-                start_x=10,
+                start_x=100,
                 start_y=self.height / 2,
-                color=(255, 255, 255),
+                color=(26, 35, 128),
                 font_size=36,
             )
 
@@ -112,7 +113,7 @@ class NewGame(arcade.Window):
             item.velocity += g * dt
 
         if len(self.drugs) < 15 and random.randint(0, 100) < 10:
-            drug = arcade.Sprite("img/coin.png", SPRITE_SCALING_COIN)
+            drug = arcade.Sprite("img/Broccoli2.png", SPRITE_SCALING_COIN)
             drug.score = 1
             drug.velocity = random.randint(10, 25) * g
             drug.center_x = random.randint(0, self.width)
@@ -120,7 +121,7 @@ class NewGame(arcade.Window):
             self.drugs.append(drug)
 
         if len(self.healthy_food) < 3 and random.randint(0, 100) < 5:
-            food = arcade.Sprite("img/wall.png", SPRITE_SCALING)
+            food = arcade.Sprite("img/burger.png", SPRITE_SCALING)
             food.velocity = random.randint(15, 30) * g
             food.center_x = random.randint(0, self.width)
             food.center_y = random.randint(self.height - 100, self.height)
