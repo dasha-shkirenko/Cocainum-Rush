@@ -15,6 +15,7 @@ class NewGame(arcade.Window):
         super().__init__(width, height)
         self.player = arcade.Sprite("img/character.png",
                                     SPRITE_SCALING_PLAYER)
+        arcade.set_background_color(arcade.color.LIGHT_SEA_GREEN)
         self.drugs = arcade.SpriteList()
         self.healthy_food = arcade.SpriteList()
 
@@ -62,7 +63,7 @@ class NewGame(arcade.Window):
         if not self.is_running:
             arcade.draw_text(
                 text='Press space to start',
-                start_x=10,
+                start_x=100,
                 start_y=self.height / 2,
                 color=(255, 255, 255),
                 font_size=36,
@@ -112,18 +113,34 @@ class NewGame(arcade.Window):
             item.velocity += g * dt
 
         if len(self.drugs) < 15 and random.randint(0, 100) < 10:
-            drug = arcade.Sprite("img/coin.png", SPRITE_SCALING_COIN)
-            drug.score = 1
-            drug.velocity = random.randint(10, 25) * g
-            drug.center_x = random.randint(0, self.width)
-            drug.center_y = random.randint(self.height - 100, self.height)
-            self.drugs.append(drug)
+            if self.time_left > 20:
+                drug = arcade.Sprite("img/panda2.png", SPRITE_SCALING_COIN)
+                drug.score = 1
+                drug.velocity = random.randint(10, 25) * g
+                drug.center_x = random.randint(0, self.width)
+                drug.center_y = random.randint(self.height - 100, self.height)
+                self.drugs.append(drug)
+            elif self.time_left > 10:
+                drug = arcade.Sprite("img/corgi.png", SPRITE_SCALING_COIN)
+                drug.score = 1
+                drug.velocity = random.randint(10, 25) * g
+                drug.center_x = random.randint(0, self.width)
+                drug.center_y = random.randint(self.height - 100, self.height)
+                self.drugs.append(drug)
+            else:
+                drug = arcade.Sprite("img/alpaca.png", SPRITE_SCALING_COIN)
+                drug.score = 1
+                drug.velocity = random.randint(10, 25) * g
+                drug.center_x = random.randint(0, self.width)
+                drug.center_y = random.randint(self.height - 100, self.height)
+                self.drugs.append(drug)
 
         if len(self.healthy_food) < 3 and random.randint(0, 100) < 5:
-            food = arcade.Sprite("img/wall.png", SPRITE_SCALING)
+            food = arcade.Sprite("img/poo.png", SPRITE_SCALING)
             food.velocity = random.randint(15, 30) * g
             food.center_x = random.randint(0, self.width)
             food.center_y = random.randint(self.height - 100, self.height)
+
             self.healthy_food.append(food)
 
         for item in itertools.chain(self.drugs, self.healthy_food):
